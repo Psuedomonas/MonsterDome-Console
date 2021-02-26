@@ -1,8 +1,8 @@
 #!/usr/bin/python3.4
-# Filename: MonsterPenWorks008.py
+# Filename: MonsterDome-Console.py
 ''' 
 By Nicholas A Zehm
-filename: myClassMonster.py
+filename: MonsterDome-Console.py
 08-Jan-2013
 An attempt at making a monster dueling game
 5/11/15
