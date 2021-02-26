@@ -2,4 +2,4 @@
 
 Text/console version of 'Monster Battle Dome'
 
-Currently a much older build.
+Currently a much older source.
