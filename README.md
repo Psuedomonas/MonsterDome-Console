@@ -9,4 +9,4 @@ filename: monsterdome-console.py
 
 Version 0.1.1
 
-This version works. Not protected from bad user input, but generally performs it function. I will now generate a development branch and a branch for this version.
+This version works. Not protected from bad user input, but generally performs it function. 
