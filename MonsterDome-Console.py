@@ -3,8 +3,7 @@
 '''
 By Nicholas A Zehm
 filename: monsterdome-console.py
-08-Jan-2013
-An attempt at making a monster dueling game
+A simple monster dueling game
 3/5/21
 Version 0.1.0
 
