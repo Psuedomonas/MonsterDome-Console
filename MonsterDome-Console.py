@@ -8,13 +8,12 @@ An attempt at making a monster dueling game
 3/5/21
 Version 0.1.1
 
-1. Make damaging insults less common?
-2. Update save, load code
-3. Add stamina
-4. Implement a new code formalism
+* Make damaging insults less common?
+* Add stamina
+* Implement a new code formalism
     camel case, pascal case, etc
-5. consider use case: redundant monster names
-6. try, except relevant user inputs
+* consider use case: redundant monster names
+* try, except relevant user inputs
 '''
 
 import random # for random numbers
