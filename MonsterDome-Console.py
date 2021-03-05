@@ -2,12 +2,12 @@
 # Filename: monsterdome-Console.py
 '''
 By Nicholas A Zehm
-filename: monsterdome-console.py
-08-Jan-2013
-An attempt at making a monster dueling game
 3/5/21
+A simple monster dueling game
+filename: monsterdome-console.py
 Version 0.1.1
 
+Todo
 * Make damaging insults less common?
 * Add stamina
 * Implement a new code formalism
