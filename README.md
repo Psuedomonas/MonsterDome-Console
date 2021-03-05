@@ -3,11 +3,9 @@ A simple monster dueling game
 
 using python 3.8
 
-By Nicholas A Zehm
+By Nicholas A Zehm 3/5/21
 
 filename: monsterdome-console.py
-
-3/5/21
 
 Version 0.1.0
 
