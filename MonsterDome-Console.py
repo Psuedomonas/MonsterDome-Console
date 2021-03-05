@@ -22,35 +22,6 @@ import time # for delay stuff
 import pickle # save data
 import math # for log?
 
-
-'''
-Very early prototype for later monster objects...
-
-
-Points      - values to enter into each skill set
-
-Strength        - Attack damage
-Dexterity       - evade, compensate for evasion...
-Speed           - initiative?
-Senses          -
-Intelligence    -
-Vitality        - health, resistance
-
-Armor
-
-Stamina
-Health
-Mana
-
-Experience
-Level
-
-if attacker(str+dex+spd+sens+int) rand > defender(spd+dex+int+sens) rand
-then attack success
-    defender damage = attacker(str, base) rand -
-
-'''
-
 # Storage File
 penStoreFile = 'monsterPenSave.mnst'
 
