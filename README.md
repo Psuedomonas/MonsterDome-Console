@@ -19,11 +19,11 @@ Version 0.1.3.1 (2021/3/17)
 * Adjust combat logic to utilize stamina
 * Changed save system to save dictionary of objects
 
-Fixed:
+**Fixed:
 * post battle healing logic fixed
 * minor UI output stuff
 
-ToDo:
+**ToDo:
 * user interaction for attacks/defense
 * leveling
 * other monster attributes
@@ -35,7 +35,7 @@ LOAD/SAVE
 - choose a saved pen for loading
 - custom save file?
 
-Other options
+**Other options
 * add partial interface for save/load pen
 * Add full interface... (like the unstable tk version)
 
