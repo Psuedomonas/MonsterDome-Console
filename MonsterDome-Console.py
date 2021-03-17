@@ -8,10 +8,6 @@ A simple monster dueling game
 
 filename: MonsterDome-Console.py
 Version 0.1.3.1 (2021/3/17)
-
-Todo
-* consider use case: redundant monster names
-* try, except relevant user inputs
 '''
 
 # Import Modules
@@ -63,6 +59,9 @@ Adds the object to the pen list
 def makeMonster():
     print('\nLets make a monster!')
     name = input('What shall it be named?: ') # get name
+    if name in pen:
+        print(name, 'is already in pen!')
+        return main()
     health = 10
     stamina = 10
     exp = 0

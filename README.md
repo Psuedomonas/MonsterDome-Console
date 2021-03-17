@@ -18,6 +18,7 @@ Changes:
 * switched to international standard date format
 * Adjust combat logic to utilize stamina
 * Changed save system to save dictionary of objects
+* Added a check for redundant names
 
 Fixed:
 * post battle healing logic fixed
@@ -27,7 +28,6 @@ ToDo:
 * user interaction for attacks/defense
 * leveling
 * other monster attributes
-* consider use case: redundant monster names
 * try, except relevant user inputs
 
 Other options
