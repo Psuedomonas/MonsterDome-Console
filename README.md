@@ -18,6 +18,7 @@ Version 0.1.3.1 (2021/3/17)
 * switched to international standard date format
 * Adjust combat logic to utilize stamina
 * Changed save system to save dictionary of objects
+* Added a check for redundant names
 
 ## Fixed:
 * post battle healing logic fixed
