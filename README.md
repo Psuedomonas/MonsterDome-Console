@@ -15,3 +15,5 @@ Changes:
 * added, then removed a debug toggle
 * added some debug lines that are commented out be default
 * cleaned up some stuff
+
+Due to bug fixes upstream, I may delete this version...
