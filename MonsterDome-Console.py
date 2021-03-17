@@ -1,27 +1,28 @@
 #!/usr/bin/python3.8
-# Filename: monsterdome-Console.py
+# Filename: MonsterDome-Console.py
 '''
 By Nicholas A Zehm
 3/5/21
 A simple monster dueling game
 filename: monsterdome-console.py
-Version 0.1.1
+Version 0.1.1.2 (3/17/21)
+
+Changes:
+removed debug mode, use comments instead -> simplifies code
 
 Todo
-* Make damaging insults less common?
 * Add stamina
-* Implement a new code formalism
-    camel case, pascal case, etc
+    - Adjust combat logic
+* try object save/load instead of deconstructed save/load
 * consider use case: redundant monster names
 * try, except relevant user inputs
+* isolate monster class to different file; for later versions
 '''
 
 import random # for random numbers
 import time # for delay stuff
 import pickle # save data
 import math # for log?
-
-debug_mode = True
 
 # Storage File
 penStoreFile = 'monsterPenSave.mnst'
@@ -476,84 +477,47 @@ def loadPen():
 The Main Menu function
 '''
 def main():
+    mainMenu = {'check' : "check out the monsters in the pen",
+                'add' : "add a new monster to the pen",
+                #'dm' : "add a new monster to the pen in dungeon master mode", #Debug code
+                'kill' : "kill a monster in the pen",
+                'fight' : "fight monsters in the pen",
+                'feed' : "feed the monsters in the pen, brings them to full health",
+                'save' : "Save the pen",
+                'load' : "Load a pen",
+                'exit' : "Exit the monster dome"}
 
-    if debug_mode == True:
-        demo()
-        
-        mainMenu = {'check' : "check out the monsters in the pen",
-                    'add' : "add a new monster to the pen",
-                    'dm' : "add a new monster to the pen in dungeon master mode",
-                    'kill' : "kill a monster in the pen",
-                    'fight' : "fight monsters in the pen",
-                    'feed' : "feed the monsters in the pen, brings them to full health",
-                    'save' : "Save the pen",
-                    'load' : "Load a pen",
-                    'exit' : "Exit the monster dome"}
-
-        for menuOption in mainMenu:
-            print("\t",menuOption, "\t:\t", mainMenu[menuOption])
+    for menuOption in mainMenu:
+        print("\t",menuOption, "\t:\t", mainMenu[menuOption])
     
-        i = input('What would you like to do (type your choice and hit the enter key)? : ')
-        if i == 'check':
-            print('\nThere are {0} monsters in the pen'.format(len(pen)))
-            showPen()
-            wait = input('')
-            return main()
-        elif i == 'add':
-            return makeMonster()
-        elif i == 'fight':
-            return selectMonster()
-        elif i == 'kill':
-            return killMonster()
-        elif i == 'save':
-            return savePen()
-        elif i == 'load':
-            return loadPen()
-        elif i == 'dm':
-            return dmMakeMonster()
-        elif i == 'exit':
-            exit()
-        elif i == 'feed':
-            feedingTime(corpse = False)
-        else:
-            return main()
+    i = input('What would you like to do (type your choice and hit the enter key)? : ')
+    if i == 'check':
+        print('\nThere are {0} monsters in the pen'.format(len(pen)))
+        showPen()
+        wait = input('')
+        return main()
+    elif i == 'add':
+        return makeMonster()
+    elif i == 'fight':
+        return selectMonster()
+    elif i == 'kill':
+        return killMonster()
+    elif i == 'save':
+        return savePen()
+    elif i == 'load':
+        return loadPen()
+    elif i == 'dm':
+        return dmMakeMonster()
+    elif i == 'exit':
+        exit()
+    elif i == 'feed':
+        feedingTime(corpse = False)
     else:
-        mainMenu = {'check' : "check out the monsters in the pen",
-                    'add' : "add a new monster to the pen",
-                    'kill' : "kill a monster in the pen",
-                    'fight' : "fight monsters in the pen",
-                    'feed' : "feed the monsters in the pen, brings them to full health",
-                    'save' : "Save the pen",
-                    'load' : "Load a pen",
-                    'exit' : "Exit the monster dome"}
+        return main()
 
-        for menuOption in mainMenu:
-            print("\t",menuOption, "\t:\t", mainMenu[menuOption])
-    
-        i = input('What would you like to do (type your choice and hit the enter key)? : ')
-        if i == 'check':
-            print('\nThere are {0} monsters in the pen'.format(len(pen)))
-            showPen()
-            wait = input('')
-            return main()
-        elif i == 'add':
-            return makeMonster()
-        elif i == 'fight':
-            return selectMonster()
-        elif i == 'kill':
-            return killMonster()
-        elif i == 'save':
-            return savePen()
-        elif i == 'load':
-            return loadPen()
-        elif i == 'exit':
-            exit()
-        elif i == 'feed':
-            feedingTime(corpse = False)
-        else:
-            return main()
 
 # Program procedure
 print('*** Welcome to the monster battle dome! ***')
+#demo() # debug code
 main()
 print('\nLeaving the battle dome...')
