@@ -27,7 +27,9 @@ ToDo:
 * user interaction for attacks/defense
 * leveling
 * other monster attributes
+
 LOAD/SAVE
+
 - add multiple pens to single save file
 - edit/delete saved pens
 - choose a saved pen for loading
