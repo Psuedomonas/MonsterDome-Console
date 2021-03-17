@@ -3,11 +3,11 @@ A simple monster dueling game
 
 using python 3.8
 
-By Nicholas A Zehm 1/8/13
+By Nicholas A Zehm 2013/1/8
 
 filename: monsterdome-console.py
 
-Version 0.1.3 (3/17/21)
+Version 0.1.3 (2021/3/17)
 
 Development version
 
@@ -17,6 +17,7 @@ Changes:
 * Added level to the monster object
 * updated with changes from version 0.1.1.2
 * Adjusted the file date to reflect date of earliest prototype of this project (MonsterPenWorks.py)
+* switched to international standard date format
 
 ToDo
 * Adjust combat logic
