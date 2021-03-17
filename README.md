@@ -9,7 +9,7 @@ filename: monsterdome-console.py
 
 Version 0.1.3.1 (2021/3/17)
 
-Changes:
+**Changes:
 * Separated monster.py to minutely simplify code.
 * Added stamina to the monster object
 * Added level to the monster object
