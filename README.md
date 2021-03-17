@@ -27,8 +27,11 @@ ToDo:
 * user interaction for attacks/defense
 * leveling
 * other monster attributes
-* consider use case: redundant monster names
-* try, except relevant user inputs
+* LOAD/SAVE
+*   add multiple pens to single save file
+*   edit/delete saved pens
+*   choose a saved pen for loading
+*   custom save file?
 
 Other options
 * add partial interface for save/load pen
