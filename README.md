@@ -3,7 +3,7 @@ A simple monster dueling game
 
 using python 3.8
 
-By Nicholas A Zehm 3/5/21
+By Nicholas A Zehm 1/8/13
 
 filename: monsterdome-console.py
 
@@ -16,6 +16,7 @@ Changes:
 * Added stamina to the monster object
 * Added level to the monster object
 * updated with changes from version 0.1.1.2
+* Adjusted the file date to reflect date of earliest prototype of this project
 
 ToDo
 * Adjust combat logic
