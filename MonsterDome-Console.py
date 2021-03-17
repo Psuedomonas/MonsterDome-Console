@@ -264,7 +264,7 @@ def feedingTime(corpse):
             m = obj.getMaxHealth()
             if m > h:
                 obj.setHealth(m)
-                print("{0} now feed and healed {1} for {2} health\n".format(monster, m-h, m))
+                print("{0} now fed and healed {1} for {2} health\n".format(monster, m-h, m))
             del obj
         # if called from main(), immersive output
         if corpse == False:
@@ -468,7 +468,6 @@ def battle(name1, name2):
             survivor_name = name2
 
             if obj2.getMaxHealth() > obj2.getHealth(): # for now, we allow for greater than max health, but not for healing
-                heal = obj1.getMaxHealth() // 3
                 print(heal)
 
                 if obj2.getMaxHealth() >= (heal + obj2.getHealth()):
@@ -493,7 +492,7 @@ def battle(name1, name2):
 
             if obj1.getMaxHealth() > obj1.getHealth(): # for now, we allow for greater than max health, but not for healing
                 heal = obj2.getMaxHealth() // 3
-                print(heal)
+                
                 if obj1.getMaxHealth() >= (heal + obj1.getHealth()):
                     t = obj1.getHealth() + heal
                     obj1.setHealth(t)
@@ -627,7 +626,7 @@ The Main Menu function
 def main():
     mainMenu = {'check' : "check out the monsters in the pen",
                     'add' : "add a new monster to the pen",
-                    #'dm' : "add a new monster to the pen in dungeon master mode", # debug code
+                    'dm' : "add a new monster to the pen in dungeon master mode", # debug code
                     'kill' : "kill a monster in the pen",
                     'fight' : "fight monsters in the pen",
                     'feed' : "feed the monsters in the pen, brings them to full health",
@@ -667,6 +666,6 @@ def main():
 
 # Program procedure
 print('*** Welcome to the monster battle dome! ***')
-#demo() # debug code
+demo() # debug code
 main()
 print('\nLeaving the battle dome...')
