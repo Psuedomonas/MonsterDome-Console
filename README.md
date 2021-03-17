@@ -12,16 +12,10 @@ Version 0.1.3 (3/17/21)
 Development version
 
 Changes:
-Separated monster.py to minutely simplify code.
-
-Added stamina to the monster object
-
-Added level to the monster object
-
-updated with changes from version 0.1.1.2
-
-in-progress:
-Adding stamina to combat sequence
+* Separated monster.py to minutely simplify code.
+* Added stamina to the monster object
+* Added level to the monster object
+* updated with changes from version 0.1.1.2
 
 ToDo
 * Adjust combat logic
