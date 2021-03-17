@@ -7,7 +7,7 @@ By Nicholas A Zehm 2013/1/8
 
 filename: monsterdome-console.py
 
-Version 0.1.3 (2021/3/17)
+Version 0.1.3.1 (2021/3/17)
 
 Changes:
 * Separated monster.py to minutely simplify code.
@@ -17,6 +17,7 @@ Changes:
 * Adjusted the file date to reflect date of earliest prototype of this project (MonsterPenWorks.py)
 * switched to international standard date format
 * Adjust combat logic to utilize stamina
+* Changed save system to save dictionary of objects
 
 Fixed:
 * post battle healing logic fixed
@@ -26,7 +27,6 @@ ToDo:
 * user interaction for attacks/defense
 * leveling
 * other monster attributes
-* try object save/load instead of deconstructed save/load
 * consider use case: redundant monster names
 * try, except relevant user inputs
 

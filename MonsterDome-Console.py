@@ -7,10 +7,9 @@ By Nicholas A Zehm
 A simple monster dueling game
 
 filename: MonsterDome-Console.py
-Version 0.1.3 (2021/3/17)
+Version 0.1.3.1 (2021/3/17)
 
 Todo
-* try object save/load instead of deconstructed save/load
 * consider use case: redundant monster names -starting work for testing this
 * try, except relevant user inputs
 '''
@@ -39,20 +38,20 @@ def demo():
     obj = Monster(20, 10, 0 , 0) #(max_health, max_stamina, experience, level)
     obj.setHealth(10)
     pen['bill'] = obj
-    
+
     obj = Monster(10, 10, 0, 0)
     pen['ted'] = obj
-    
+
     obj = Monster(10, 10, 10, 0)
     pen['bob'] = obj
-    
+
     obj = Monster(10, 10, 0, 0)
     obj.setHealth(20)
     pen['fred'] = obj
-    
+
     obj = Monster(1,1,1,1)
     pen['Zanz'] = obj
-    
+
     del obj
     print('Some monsters were added to the pen')
 
@@ -172,13 +171,7 @@ def savePen():
     stats = {}
     for name in pen:
         obj = pen[name]
-        health = obj.getHealth()
-        max_h = obj.getMaxHealth()
-        exp = obj.getExp()
-        stats[name] = {}
-        stats[name]['health'] = health
-        stats[name]['exp'] = exp
-        stats[name]['max_h'] = max_h
+        stats.update({name : obj})
 
     with open(penStoreFile, 'wb') as f:
         pickle.dump(stats, f)
@@ -198,13 +191,7 @@ def loadPen():
     # rebuild objects from saved nested list
 
     for name in newPen:
-        health = newPen[name]['health']
-        exp = newPen[name]['exp']
-        max_h = newPen[name]['max_h']
-        obj = Monster(max_h,exp)
-        obj.setHealth(health)
-        pen[name] = obj
-        del obj
+        pen[name] = newPen[name]
 
     showPen()
     main()
@@ -472,23 +459,23 @@ def battle(name1, name2):
             if proc == 'exit': # a chance to end the fight, if only the user knew this existed...
                 keepFighting = False
                 print("You flee the arena... with your monsters...")
-    
-    
+
+
     '''Clean up after battle'''
     if alive == 1:
         t = 0
         heal = 0
         if obj1.getHealth() <= 0:   # First monster defeated, eaten by second
             survivor_name = name2
-            
+
             if obj2.getMaxHealth() > obj2.getHealth(): # for now, we allow for greater than max health, but not for healing
                 heal = obj1.getMaxHealth() // 3
                 print(heal)
-                
+
                 if obj2.getMaxHealth() >= (heal + obj2.getHealth()):
                     t = obj2.getHealth() + heal
                     obj2.setHealth(t)
-                else: 
+                else:
                     heal = obj2.getMaxHealth() - obj2.getHealth()
                     t = obj2.getMaxHealth()
                     obj2.setHealth(t)
@@ -504,7 +491,7 @@ def battle(name1, name2):
 
         elif obj2.getHealth() <= 0: # Second monster defeated, eaten by first
             survivor_name = name1
-            
+
             if obj1.getMaxHealth() > obj1.getHealth(): # for now, we allow for greater than max health, but not for healing
                 heal = obj2.getMaxHealth() // 3
                 print(heal)
