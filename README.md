@@ -16,7 +16,7 @@ Changes:
 * Added stamina to the monster object
 * Added level to the monster object
 * updated with changes from version 0.1.1.2
-* Adjusted the file date to reflect date of earliest prototype of this project
+* Adjusted the file date to reflect date of earliest prototype of this project (MonsterPenWorks.py)
 
 ToDo
 * Adjust combat logic
