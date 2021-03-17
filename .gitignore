@@ -1,5 +1,0 @@
-#the save file
-*.mnst
-
-#binaries (for now)
-*.pyc
