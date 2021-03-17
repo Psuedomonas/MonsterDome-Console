@@ -18,9 +18,15 @@ Changes:
 * updated with changes from version 0.1.1.2
 * Adjusted the file date to reflect date of earliest prototype of this project (MonsterPenWorks.py)
 * switched to international standard date format
+* Adjust combat logic to utilize stamina
 
-ToDo
-* Adjust combat logic
+Fixed:
+* post battle healing logic fixed
+
+ToDo:
+* user interaction for attacks/defense
+* leveling
+* other monster attributes
 * try object save/load instead of deconstructed save/load
 * consider use case: redundant monster names
 * try, except relevant user inputs
