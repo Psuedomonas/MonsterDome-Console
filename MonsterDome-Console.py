@@ -10,7 +10,7 @@ filename: MonsterDome-Console.py
 Version 0.1.3.1 (2021/3/17)
 
 Todo
-* consider use case: redundant monster names -starting work for testing this
+* consider use case: redundant monster names
 * try, except relevant user inputs
 '''
 
@@ -628,7 +628,7 @@ The Main Menu function
 def main():
     mainMenu = {'check' : "check out the monsters in the pen",
                     'add' : "add a new monster to the pen",
-                    #'dm' : "add a new monster to the pen in dungeon master mode", # debug code
+                    'dm' : "add a new monster to the pen in dungeon master mode", # debug code
                     'kill' : "kill a monster in the pen",
                     'fight' : "fight monsters in the pen",
                     'feed' : "feed the monsters in the pen, brings them to full health",
@@ -668,6 +668,6 @@ def main():
 
 # Program procedure
 print('*** Welcome to the monster battle dome! ***')
-#demo() # debug code
+demo() # debug code
 main()
 print('\nLeaving the battle dome...')
