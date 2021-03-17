@@ -9,8 +9,6 @@ filename: monsterdome-console.py
 
 Version 0.1.3 (2021/3/17)
 
-Development version
-
 Changes:
 * Separated monster.py to minutely simplify code.
 * Added stamina to the monster object
@@ -34,3 +32,5 @@ ToDo:
 Other options
 * add partial interface for save/load pen
 * Add full interface... (like the unstable tk version)
+
+This version works appers to work

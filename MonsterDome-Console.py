@@ -1,9 +1,11 @@
 #!/usr/bin/python3.8
-# Filename: monsterdome-console.py
+# Filename: MonsterDome-Console.py
+
 '''
 By Nicholas A Zehm
 3/5/21
 A simple monster dueling game
+
 filename: MonsterDome-Console.py
 Version 0.1.3 (2021/3/17)
 
@@ -12,6 +14,7 @@ Todo
 * consider use case: redundant monster names -starting work for testing this
 * try, except relevant user inputs
 '''
+
 # Import Modules
 import random # for random numbers
 import time # for delay stuff
@@ -636,10 +639,9 @@ def defenseType(name1, name2):
 The Main Menu function
 '''
 def main():
-
     mainMenu = {'check' : "check out the monsters in the pen",
                     'add' : "add a new monster to the pen",
-                    'dm' : "add a new monster to the pen in dungeon master mode", # debug code
+                    #'dm' : "add a new monster to the pen in dungeon master mode", # debug code
                     'kill' : "kill a monster in the pen",
                     'fight' : "fight monsters in the pen",
                     'feed' : "feed the monsters in the pen, brings them to full health",
@@ -649,6 +651,7 @@ def main():
 
     for menuOption in mainMenu:
         print("\t",menuOption, "\t:\t", mainMenu[menuOption])
+
 
     i = input('What would you like to do (type your choice and hit the enter key)? : ')
     if i == 'check':
@@ -676,9 +679,8 @@ def main():
         return main()
 
 
-
 # Program procedure
 print('*** Welcome to the monster battle dome! ***')
-demo() # debug code
+#demo() # debug code
 main()
 print('\nLeaving the battle dome...')
