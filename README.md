@@ -20,6 +20,7 @@ Changes:
 
 Fixed:
 * post battle healing logic fixed
+* minor UI output stuff
 
 ToDo:
 * user interaction for attacks/defense
