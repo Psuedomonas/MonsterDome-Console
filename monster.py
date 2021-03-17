@@ -12,13 +12,13 @@ To simplify code a wee bit, the monster class has been placed here.
 # The Monster Object
 class Monster:
     '''Initialize the monster'''
-    def __init__(self, health, exp):
+    def __init__(self, health, stamina, exp, lvl):
         self.health = health
         self.exp = exp
         self.maxhealth = health
-        self.stamina = 10
-        self.maxstamina = 10
-        self.level = 0
+        self.stamina = stamina
+        self.maxstamina = stamina
+        self.level = lvl
 
     #Accessors
     def getHealth(self):
