@@ -7,7 +7,6 @@ version 1
 for MonsterBattleConsole.py version  0.1.4 (2021-3-19)
 '''
 
-
 # Import Modules
 import random # for random numbers
 import time # for delay stuff
@@ -188,7 +187,6 @@ def battle(name1, name2):
             if proc == 'exit': # a chance to end the fight, if only the user knew this existed...
                 keepFighting = False
                 print("You flee the arena... with your monsters...")
-
 
     '''Clean up after battle'''
     if alive == 1:
