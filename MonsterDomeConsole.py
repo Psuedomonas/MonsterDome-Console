@@ -1,12 +1,12 @@
 #!/usr/bin/python3.8
-# Filename: MonsterDome-Console.py
+# Filename: MonsterDomeConsole.py
 
 '''
 By Nicholas A Zehm
 2021-3-5
 A simple monster dueling game
 
-filename: MonsterDome-Console.py
+filename: MonsterDomeConsole.py
 Version 0.1.4 (2021-3-17)
 '''
 
