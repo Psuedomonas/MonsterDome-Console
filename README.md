@@ -3,11 +3,11 @@ A simple monster dueling game
 
 using python 3.8
 
-By Nicholas A Zehm 2013/1/8
+By Nicholas A Zehm 2013-1-8
 
 filename: MonsterDomeConsole.py
 
-Version 0.1.4 (2021/3/19)
+Version 0.1.4 (2021-3-19)
 Stable Version
 
 Changes:
@@ -16,7 +16,7 @@ Changes:
 * changed main, interface, mainUserInterface to reduce printing of main_menu
 * minor edits and fixes
 
-Version 0.1.3.1 (2021/3/17)
+Version 0.1.3.1 (2021-3-17)
 Experimental version
 
 Changes:
