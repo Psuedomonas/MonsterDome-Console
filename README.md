@@ -5,11 +5,21 @@ using python 3.8
 
 By Nicholas A Zehm 2013/1/8
 
-filename: monsterdome-console.py
+filename: MonsterDomeConsole.py
+
+Version 0.1.4 (2021/3/19)
+Stable Version
+
+Changes:
+* separated battle.py
+* adjusted code to prevent circular referencing - now better suited for gui
+* changed main, interface, mainUserInterface to reduce printing of main_menu
+* minor edits and fixes
 
 Version 0.1.3.1 (2021/3/17)
+Experimental version
 
-## Changes:
+Changes:
 * Separated monster.py to minutely simplify code.
 * Added stamina to the monster object
 * Added level to the monster object
@@ -20,24 +30,26 @@ Version 0.1.3.1 (2021/3/17)
 * Changed save system to save dictionary of objects
 * Added a check for redundant names
 
-## Fixed:
+Fixed:
 * post battle healing logic fixed
 * minor UI output stuff
 
-## ToDo:
+ToDo:
+* standardize function descriptions throughout code
+* multiple pens to save file
+* delete pens from save file
+* save as?
+
+* use an internal ID system for monsters, instead of name?
+    -why do this?
+
 * user interaction for attacks/defense
 * leveling
 * other monster attributes
+* start thinking about a UI
 
-LOAD/SAVE
-
-- add multiple pens to single save file
-- edit/delete saved pens
-- choose a saved pen for loading
-- custom save file?
-
-## Other options
+Other options
 * add partial interface for save/load pen
 * Add full interface... (like the unstable tk version)
 
-This version works appears to work - calling it stable
+This version works appears to work- calling it stable
