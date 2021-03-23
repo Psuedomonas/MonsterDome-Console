@@ -13,7 +13,7 @@ Stable Version
 Changes:
 * separated battle.py
 * adjusted code to prevent circular referencing - now better suited for gui
-* changed main, interface, mainUserInterface to reduce printing of main_menu
+* changed main, added interface and mainUserInterface to reduce printing of main_menu
 * minor edits and fixes
 
 Version 0.1.3.1 (2021-3-17)
