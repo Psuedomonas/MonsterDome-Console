@@ -1,5 +1,5 @@
 '''
-By Nicholas A Zehm
+By Nicholas Zehm
 2021-3-17
 Monster class
 filename: monster.py
