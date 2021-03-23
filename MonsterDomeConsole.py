@@ -2,7 +2,7 @@
 # Filename: MonsterDomeConsole.py
 
 '''
-By Nicholas A Zehm
+By Nicholas Zehm
 2021-3-5
 A simple monster dueling game
 
