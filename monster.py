@@ -12,23 +12,6 @@ Otherwise, with some code changes, I could simply use a dictionary. This would u
 how it would effect execution time.
 '''
 
-# '''
-# The Pen Object
-# Why am I doing this?
-# '''
-# class Pen:
-    # def __init__(self):
-        # self.pen{}
-
-    # def getPen(self):
-        # return self.pen
-
-    # def setPen(self, pen)
-        # try:
-            # self.pen = pen
-        # except:
-            # print('Error saving to pen')
-
 pen = {}
 
 
