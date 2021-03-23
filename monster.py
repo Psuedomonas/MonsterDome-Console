@@ -1,15 +1,37 @@
 '''
 By Nicholas A Zehm
-3/17/21
+2021-3-17
 Monster class
 filename: monster.py
-version 1
-for MonsterBattle-Console.py version  0.1.3
+for MonsterBattle-Console.py version  0.1.3.1 (2021-3-19)
+version 1.1 (2021-3-19)
 
-To simplify code a wee bit, the monster class has been placed here.
+Notes:
+The advantage, as far as I can see, for wrapping variables in methods is protecting client input
+Otherwise, with some code changes, I could simply use a dictionary. This would use a lot less code, no idea
+how it would effect execution time.
 '''
 
-# The Monster Object
+# '''
+# The Pen Object
+# Why am I doing this?
+# '''
+# class Pen:
+    # def __init__(self):
+        # self.pen{}
+
+    # def getPen(self):
+        # return self.pen
+
+    # def setPen(self, pen)
+        # try:
+            # self.pen = pen
+        # except:
+            # print('Error saving to pen')
+
+pen = {}
+
+
 class Monster:
     '''Initialize the monster'''
     def __init__(self, health, stamina, exp, lvl):
@@ -41,19 +63,29 @@ class Monster:
 
     #Mutators
     def setHealth(self, health):
+        if health < 0: 
+            health = 0
         self.health = health
 
     def setExp(self, exp):
+        if exp < 0:
+            exp = 0
         self.exp = exp
 
     def setMaxHealth(self, health):
+        if health < 0:
+            health = 0
         self.maxhealth = health
 
     def setStamina(self, stamina):
         self.stamina = stamina
     
     def setMaxStamina(self, stamina):
+        if stamina < 0:
+            stamina = 0
         self.maxstamina = stamina
         
     def setLevel(self, level):
+        if level < 0:
+            level = 0
         self.level = level
