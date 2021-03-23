@@ -35,7 +35,7 @@ Fixed:
 * minor UI output stuff
 
 ToDo:
-* standardize function descriptions throughout code
+* finish function descriptions throughout code
 * multiple pens to save file
 * delete pens from save file
 * save as?
