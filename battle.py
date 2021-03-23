@@ -7,7 +7,6 @@ version 1
 for MonsterBattleConsole.py version  0.1.4 (2021-3-19)
 '''
 
-
 # Import Modules
 import random # for random numbers
 import time # for delay stuff
