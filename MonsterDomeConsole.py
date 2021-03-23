@@ -47,7 +47,6 @@ else:
 '''
 ##### Pen Methods #####
 '''
-
 #  
 #  name: demo
 #  purpose: place some monsters in the pen at start
@@ -109,7 +108,6 @@ def makeMonster():
     return interface() #bring back the menu interface
 
 
-
 #  
 #  name: dmMakeMonster
 #  purpose: add a customized monster to the pen, for testing
@@ -155,7 +153,6 @@ def dmMakeMonster():
         print('{0} has been slaughtered\n'.format(name))
     
     return interface()
-
 
 
 #  
@@ -230,7 +227,6 @@ def loadPen():
 '''
 ##### Pen and Combat Methods #####
 '''
-
 #  
 #  name: checkMonster
 #  purpose:
@@ -348,11 +344,9 @@ def selectMonster():
     return interface()
     
 
-
 '''
 #####   The Main Function   #####
 '''
-
 #  
 #  name: main
 #  purpose:
@@ -437,6 +431,7 @@ def mainUserInput():
     else:
         return mainUserInput() # We are assuming the user won't put an obscene amount of bad input
 
+    
 #  
 #  name: interface
 #  purpose:
