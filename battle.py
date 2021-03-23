@@ -188,7 +188,6 @@ def battle(name1, name2):
                 keepFighting = False
                 print("You flee the arena... with your monsters...")
 
-
     '''Clean up after battle'''
     if alive == 1:
         t = 0
