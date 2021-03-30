@@ -34,15 +34,12 @@ Fixed:
 * post battle healing logic fixed
 * minor UI output stuff
 
-ToDo:
+## ToDo:
 * finish function descriptions throughout code
 * multiple pens to save file
 * delete pens from save file
 * save as?
-
-* use an internal ID system for monsters, instead of name?
-    -why do this?
-
+* use an internal ID system for monsters, instead of name? - why do this?
 * user interaction for attacks/defense
 * leveling
 * other monster attributes
