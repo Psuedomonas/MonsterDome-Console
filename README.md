@@ -39,7 +39,7 @@ Fixed:
 * multiple pens to save file
 * delete pens from save file
 * save as?
-* use an internal ID system for monsters, instead of name? - why do this?
+* use an internal ID system for monsters, instead of name? - allow same redundant names?
 * user interaction for attacks/defense
 * leveling
 * other monster attributes
