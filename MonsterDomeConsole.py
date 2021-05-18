@@ -7,7 +7,7 @@ By Nicholas Zehm
 A simple monster dueling game
 
 filename: MonsterDomeConsole.py
-Version 0.1.4 (2021-3-17)
+Version 0.1.5 (2021-5-17)
 '''
 
 # Activate Debug mode (so many neat features...)
@@ -23,7 +23,7 @@ from battle import *
 # Storage File
 penStoreFile = 'monsterPenSave.mnst'
 
-# configures main menu 
+# configures main menu
 if debug_mode == True:
     main_menu = {'show' : "check out the monsters in the pen",
                 'add' : "add a new monster to the pen",
@@ -47,12 +47,12 @@ else:
 '''
 ##### Pen Methods #####
 '''
-#  
+#
 #  name: demo
 #  purpose: place some monsters in the pen at start
 #  @param   none
 #  @return  none
-#  
+#
 def demo():
     obj = Monster(20, 10, 0 , 0) #(max_health, max_stamina, experience, level)
     obj.setHealth(10)
@@ -73,14 +73,14 @@ def demo():
 
     del obj
     print('Some monsters were added to the pen')
-    
 
-#  
+
+#
 #  name: makeMonster
 #  purpose: add a user created monster to the pen
 #  @param   none
 #  @return  tail call back to interface
-#  
+#
 def makeMonster():
     print('\nLets make a monster!')
     name = input('What shall it be named?: ') # get name
@@ -104,16 +104,16 @@ def makeMonster():
         del obj
     else:
         print('{0} has been slaughtered\n'.format(name))
-        
+
     return interface() #bring back the menu interface
 
 
-#  
+#
 #  name: dmMakeMonster
 #  purpose: add a customized monster to the pen, for testing
 #  @param   none
 #  @return  tail call back to interface
-#  
+#
 def dmMakeMonster():
     print('\nGreetings monster deity\n')
     name = input('What shall the new monster be named? : ')
@@ -151,16 +151,16 @@ def dmMakeMonster():
         del obj #its in the pen, don't need it elsewhere
     else:
         print('{0} has been slaughtered\n'.format(name))
-    
+
     return interface()
 
 
-#  
+#
 #  name: killMonster
 #  purpose: User cam remove/terminate a monster in the pen
 #  @param   None
 #  @return  tail call back to interface
-#  
+#
 def killMonster():
     showPen()
     name = input('\nWhich monster do you want to kill? : ')
@@ -169,27 +169,27 @@ def killMonster():
         health = obj.getHealth()
         exp = obj.getExp()
         del obj
-        kmonst = input('Are you sure you want to kill {0}, who has {1} health and {2} experience? '.format(name, health, exp))
-    if kmonst == 'yes':
-        del pen[name]
-        print('\n{0} has been killed...'.format(name))
-        do_with_corpse = input("Do you want to 'feed' the corpse to the monsters (heals them) or 'incinerate' it?")
-        if do_with_corpse == 'incinerate':   
-            feedingTime(corpse = True)
-        showPen()
-        print('\n')
+        kmonst = input('Are you sure you want to kill {0}, who has {1} health and {2} experience? (yes/no): '.format(name, health, exp))
+        if kmonst == 'yes':
+            del pen[name]
+            print('\n{0} has been killed...'.format(name))
+            do_with_corpse = input("Do you want to 'feed' the corpse to the monsters (heals them) or 'incinerate' it? : ")
+            if do_with_corpse == 'incinerate':
+                feedingTime(corpse = True)
+            showPen()
+            print('\n')
     else:
         print('\n{0} is not in the pen!\n'.format(name))
-    
+
     return interface()
 
 
-#  
+#
 #  name: savePen
 #  purpose: save pen to file
 #  @param   none
 #  @return  tail call back to interface
-#  
+#
 def savePen():
     #build list
     stats = {}
@@ -206,12 +206,12 @@ def savePen():
     return interface()
 
 
-#  
+#
 #  name: loadPen
 #  purpose: Load pen from file
 #  @param   none
 #  @return  tail call back to interface
-#  
+#
 def loadPen():
     with (open(penStoreFile, "rb")) as f:
         newPen = pickle.load(f)
@@ -227,12 +227,12 @@ def loadPen():
 '''
 ##### Pen and Combat Methods #####
 '''
-#  
+#
 #  name: checkMonster
 #  purpose:
 #  @param
 #  @return
-#  
+#
 def checkMonster(name):
     if name in pen:
         #print('\nPreforming health check of monster...') #I'm not using this to parse the pen yet
@@ -253,29 +253,29 @@ def checkMonster(name):
         print('For mysterious reasons', name, 'does not appear to be in the pen.')
 
 
-#  
+#
 #  name: showPen
 #  purpose:
 #  @param
 #  @return
-#  
+#
 def showPen():
     for name in pen:
-        checkMonster(name) 
+        checkMonster(name)
 
 
-#  
+#
 #  name: feedingTime
 #  purpose:
 #  @param   corpse = Boolean
 #  @return  tail call back to interface
-#  
+#
 def feedingTime(corpse):
     # called by a kill from killmonster() or from mainUserInterface() for feeding
-    if corpse == True: 
+    if corpse == True:
         #if mainUserInterface() called it
         print("its bloody corpse has been eaten by the others.")
-    else: 
+    else:
         #called by killmonster()
         print("\nIts Feeding time!\n")
 
@@ -297,12 +297,12 @@ def feedingTime(corpse):
         return interface() #throw interface()
 
 
-#  
+#
 #  name: liveInPen
 #  purpose:
 #  @param
 #  @return
-# 
+#
 def liveInPen(name):
     obj = pen[name]
     if obj.getHealth() <= 0:
@@ -314,12 +314,12 @@ def liveInPen(name):
         return True
 
 
-#  
+#
 #  name: selectMonster
 #  purpose:
 #  @param
 #  @return  tail call back to interface
-# 
+#
 def selectMonster():
     name1 = input('\nChoose a monster to fight in the battle dome! : ')
     if name1 in pen:
@@ -329,7 +329,7 @@ def selectMonster():
         print('\n{0} is not in the pen!\n'.format(name1))
         return interface()
 
-    name2 = input('Choose the monster to fight {0}!\n'.format(name1))
+    name2 = input('Choose the monster to fight {0}! : '.format(name1))
     if name2 in pen:
         if liveInPen(name2) == False:
             del obj1 #clear the previous monster
@@ -338,51 +338,51 @@ def selectMonster():
         print('\n{0} is not in the pen!\n'.format(name2))
         return interface()
     print('\nEntering the battle pit!')
-    
+
     combatants = {name1, name2}
     beginFight(combatants)
     return interface()
-    
+
 
 '''
 #####   The Main Function   #####
 '''
-#  
+#
 #  name: main
 #  purpose:
 #  @param
 #  @return
-#  
+#
 def main():
     if debug_mode == True:
         demo()
 
     print('*** Welcome to the monster battle dome! ***')
-    
+
     return interface()   #tail call (I believe that's what it's called)
 
 
-#  
+#
 #  name: mainUserInput
 #  purpose:
 #  @param
 #  @return
-#  
+#
 def mainUserInput():
     i = input('What would you like to do (type your choice and hit the enter key)? : ')
-    
+
     if i == 'show':
         print('\nThere are {0} monsters in the pen'.format(len(pen))) #FIXME?
         showPen()
         wait = input('')
         return interface()
-        
+
     elif i == 'add':
         return makeMonster()
-        
+
     elif i == 'fight':
         #Check before calling, don't want to edit pen when I don't need to, even with self
-        if len(pen) < 2: 
+        if len(pen) < 2:
             print('\nThere is not enough monsters in the pen!')
             print('\nLeaving the Battle Dome...\n')
             return mainUserInput()
@@ -390,16 +390,16 @@ def mainUserInput():
             showPen()
             #setPen(pen)
             return selectMonster() #leads towards the actual battle
-            
+
     elif i == 'kill':
-        
+
         if len(pen) == 0:
             print('\nThere is no-one in the pen!')
             print('Leaving the slaughterhouse...\n')
             return mainUserInput()
         else:
             return killMonster()
-            
+
     elif i == 'save':
         '''
         # commented this out because right now I'm ok with blanking the save file
@@ -410,34 +410,34 @@ def mainUserInput():
             return savePen()
         '''
         return savePen()
-        
+
     elif i == 'load':
         return loadPen()
-        
+
     elif i == 'dm' and debug_mode == True:
         return dmMakeMonster()
-        
+
     elif i == 'exit':
         exit()
-        
+
     elif i == 'feed':
-        
+
         if len(pen) > 0:
             return feedingTime(corpse = False)
         else:
             print('\nFor reasons of your own, you put food in the empty pen...\n')
             return mainUserInput()
-            
+
     else:
         return mainUserInput() # We are assuming the user won't put an obscene amount of bad input
 
-    
-#  
+
+#
 #  name: interface
 #  purpose:
 #  @param
 #  @return
-#      
+#
 def interface():
     for menu_option in main_menu:
         print("\t",menu_option, "\t:\t", main_menu[menu_option])
@@ -447,3 +447,4 @@ def interface():
 # Program procedure
 main()
 print('\nLeaving the battle dome...')
+
