@@ -13,6 +13,7 @@ Changes:
 * fixed indentation issue with killMonster()
 * cleaned user interface prompts with killMonster()
 * removed redudant liveInPen() method from battle.py
+* cleaned user interface prompts with selectMonster()
 
 Notes:
 * Weird issues may still occur in combat.
