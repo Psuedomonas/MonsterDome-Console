@@ -18,6 +18,7 @@ Notes:
 * Weird issues may still occur in combat.
 * Using python 3.9, some linux machines may use 3.8
 
+
 Version 0.1.4 (2021-3-19)
 Stable Version
 
@@ -26,6 +27,7 @@ Changes:
 * adjusted code to prevent circular referencing - now better suited for gui
 * changed main, added interface and mainUserInterface to reduce printing of main_menu
 * minor edits and fixes
+
 
 Version 0.1.3.1 (2021-3-17)
 Experimental version
