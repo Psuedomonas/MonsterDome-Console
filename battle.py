@@ -4,7 +4,7 @@ By Nicholas Zehm
 Battle logic
 filename: battle.py
 version 1
-for MonsterBattleConsole.py version  0.1.4 (2021-3-19)
+for MonsterBattleConsole.py version  0.1.5 (2021-5-17)
 '''
 
 # Import Modules
@@ -15,33 +15,16 @@ import math # for log?
 from monster import Monster, pen
 
 
-#  
-#  name: liveInPen(name)
-#  purpose: 
-#  @param
-#  @return
-#  
-def liveInPen(name):
-    obj = pen[name]
-    if obj.getHealth() <= 0:
-        print(name, "had died and was eaten by the others (or just rotted there)!")
-        del obj
-        del pen[name]
-        return False
-    else:
-        return True
-
-
-#  
+#
 #  name: selectMonster()
 #  purpose: Select a monster from the pen list for the battle dome fight, determine fight order
 #  @param   pen - list of monsters
 #  @return  battle(nameA, nameB) - to begin the fight
-#  
+#
 def beginFight(combatants):
     name1 = combatants.pop()
     name2 = combatants.pop()
-    
+
     obj1 = pen[name1]
     obj2 = pen[name2]
 
@@ -61,12 +44,12 @@ def beginFight(combatants):
         return battle(name2, name1)
 
 
-#  
+#
 #  name: fight(name1, name2, rest)
 #  purpose:
 #  @param
 #  @return
-#  
+#
 def fight(name1, name2, rest):
     '''Monsters'''
     obj1 = pen[name1] #Monster 1
@@ -108,12 +91,12 @@ def fight(name1, name2, rest):
     return alive
 
 
-#  
+#
 #  name: battle(name1, name2)
 #  purpose:
 #  @param
 #  @return
-#  
+#
 def battle(name1, name2):
     alive = 2 #Monsters are alive
     keepFighting = True # The fight is still on
@@ -220,7 +203,7 @@ def battle(name1, name2):
 
             if obj1.getMaxHealth() > obj1.getHealth(): # for now, we allow for greater than max health, but not for healing
                 heal = obj2.getMaxHealth() // 3
-                
+
                 if obj1.getMaxHealth() >= (heal + obj1.getHealth()):
                     t = obj1.getHealth() + heal
                     obj1.setHealth(t)
@@ -258,12 +241,12 @@ def battle(name1, name2):
     return battleEnd(survivor_name, alive)
 
 
-#  
+#
 #  name: battleEnd(name1, name2, rest)
 #  purpose:
 #  @param
 #  @return
-#  
+#
 def battleEnd(names, alive):
 
     proc = input('') #wait for user at end
@@ -275,12 +258,12 @@ def battleEnd(names, alive):
         print(names, 'goes to sleep in pen, recovers missing stamina\n')
 
 
-#  
+#
 #  name: battleRoll(expA, expB, cond)
 #  purpose:
 #  @param
 #  @return
-#  
+#
 def battleRoll(expA, expB, cond):
     #roll for initiative
     mAroll = random.randint(1, 10) + math.log10(1 + expA)
@@ -297,12 +280,12 @@ def battleRoll(expA, expB, cond):
         return True
 
 
-#  
+#
 #  name: attackType()
 #  purpose:
 #  @param
 #  @return
-#  
+#
 def attackType():
     attacks = {1 : 'bites', 2 : 'claws', 3 : 'punches', 4 : 'spits at', 5 : 'stabs tail at', 6 :  'insults'}
     adjectives = {1 : 'viciously', 2 : 'ferociously', 3 : 'wildly', 4 : 'mindlessly'}
@@ -332,12 +315,12 @@ def attackType():
     return attack_string
 
 
-#  
+#
 #  name: defenseType(name1, name2)
 #  purpose:
 #  @param
 #  @return
-#  
+#
 def defenseType(name1, name2):
     r = random.randint(1,3)
 
