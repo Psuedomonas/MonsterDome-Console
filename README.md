@@ -57,5 +57,3 @@ Fixed:
 Other options
 * add partial interface for save/load pen
 * Add full interface... (like the unstable tk version)
-
-This version works appears to work- calling it stable
