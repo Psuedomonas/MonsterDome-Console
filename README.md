@@ -7,8 +7,7 @@ By Nicholas Zehm 2013-1-8
 
 filename: MonsterDomeConsole.py
 
-Version 0.1.5 (2021-5-17)
-
+#### Version 0.1.5 (2021-5-17)
 Changes:
 * fixed indentation issue with killMonster()
 * cleaned user interface prompts with killMonster()
@@ -20,7 +19,7 @@ Notes:
 * Using python 3.9, some linux machines may use 3.8
 
 
-Version 0.1.4 (2021-3-19)
+#### Version 0.1.4 (2021-3-19)
 Stable Version
 
 Changes:
@@ -30,7 +29,7 @@ Changes:
 * minor edits and fixes
 
 
-Version 0.1.3.1 (2021-3-17)
+#### Version 0.1.3.1 (2021-3-17)
 Experimental version
 
 Changes:
