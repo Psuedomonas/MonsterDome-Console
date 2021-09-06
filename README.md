@@ -7,7 +7,7 @@ By Nicholas Zehm 2013-1-8
 
 filename: MonsterDomeConsole.py
 
-#### Version 0.1.5 (2021-5-17)
+#### Version 0.1.5 (2021-5-17) Stable
 Changes:
 * fixed indentation issue with killMonster()
 * cleaned user interface prompts with killMonster()
