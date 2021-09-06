@@ -19,9 +19,7 @@ Notes:
 * Using python 3.9, some linux machines may use 3.8
 
 
-#### Version 0.1.4 (2021-3-19)
-Stable Version
-
+#### Version 0.1.4 (2021-3-19) Stable
 Changes:
 * separated battle.py
 * adjusted code to prevent circular referencing - now better suited for gui
@@ -29,9 +27,7 @@ Changes:
 * minor edits and fixes
 
 
-#### Version 0.1.3.1 (2021-3-17)
-Experimental version
-
+#### Version 0.1.3.1 (2021-3-17) Experimental
 Changes:
 * Separated monster.py to minutely simplify code.
 * Added stamina to the monster object
