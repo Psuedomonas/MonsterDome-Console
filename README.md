@@ -7,6 +7,23 @@ By Nicholas Zehm 2013-1-8
 
 filename: MonsterDomeConsole.py
 
+#### Version 0.1.6.1 (2022-7-18)
+*** Logic issue with experience, Doesn't behave as intended
+- will need to rewrite battle logic
+Changes:
+* All combat gives exp.
+    5 for attack success
+    1 for attack fail
+    2 for defend success
+    1 for defend fail
+Notes: 
+I will want to change the exp system and attack system to better provide better exp development
+
+#### Version 0.1.5.1 (2022-3-19) Stable
+Changes:
+* cleaned logic issues with killMonster() and feedingTime()
+* cleaned savePen()
+
 #### Version 0.1.5 (2021-5-17) Stable
 Changes:
 * fixed indentation issue with killMonster()
@@ -16,7 +33,6 @@ Changes:
 
 Notes:
 * Weird issues may still occur in combat.
-* Using python 3.9, some linux machines may use 3.8
 
 
 #### Version 0.1.4 (2021-3-19) Stable
@@ -57,3 +73,4 @@ Fixed:
 Other options
 * add partial interface for save/load pen
 * Add full interface... (like the unstable tk version)
+

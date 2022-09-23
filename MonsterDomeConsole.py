@@ -5,9 +5,8 @@
 By Nicholas Zehm
 2021-3-5
 A simple monster dueling game
-
 filename: MonsterDomeConsole.py
-Version 0.1.5 (2021-5-17)
+Version 0.1.6.1 (2022-3-19)
 '''
 
 # Activate Debug mode (so many neat features...)
@@ -43,6 +42,7 @@ else:
                 'save' : "Save the pen",
                 'load' : "Load a pen",
                 'exit' : "Exit the monster dome"}
+
 
 '''
 ##### Pen Methods #####
@@ -175,7 +175,9 @@ def killMonster():
             print('\n{0} has been killed...'.format(name))
             do_with_corpse = input("Do you want to 'feed' the corpse to the monsters (heals them) or 'incinerate' it? : ")
             if do_with_corpse == 'incinerate':
-                feedingTime(corpse = True)
+                feedingTime(killcall = True, feeding = False)
+            else:
+                feedingTime(killcall = True, feeding = True)
             showPen()
             print('\n')
     else:
@@ -200,8 +202,8 @@ def savePen():
     with open(penStoreFile, 'wb') as f:
         pickle.dump(stats, f)
 
-    output = "Pen should be saved to {0}".format(penStoreFile)
-    print(output)
+    output = "Pen saved '{0}'".format(penStoreFile)
+    print('\n', output,'\n')
 
     return interface()
 
@@ -270,30 +272,31 @@ def showPen():
 #  @param   corpse = Boolean
 #  @return  tail call back to interface
 #
-def feedingTime(corpse):
-    # called by a kill from killmonster() or from mainUserInterface() for feeding
-    if corpse == True:
-        #if mainUserInterface() called it
-        print("its bloody corpse has been eaten by the others.")
-    else:
-        #called by killmonster()
-        print("\nIts Feeding time!\n")
+def feedingTime(killcall, feeding):
+    if feeding == True:
+        # called by a kill from killmonster() or from mainUserInterface() for feeding
+        if killcall == True:
+            #called by killmonster()
+            print("its bloody corpse has been eaten by the others.")
+        else:
+            #from feed monsters in mainUserInterface
+            print("\nIts Feeding time!\n")
 
-    # the feeding
-    for monster in pen:
-        obj = pen[monster]
-        h = obj.getHealth()
-        m = obj.getMaxHealth()
-        if m > h:
-            obj.setHealth(m)
-            print("{0} now fed and healed {1} for {2} health\n".format(monster, m-h, m))
-        del obj
-    # if called from main(), immersive output
-    if corpse == False:
-        print("All the monsters are fed!\n")
+        # the feeding
+        for monster in pen:
+            obj = pen[monster]
+            h = obj.getHealth()
+            m = obj.getMaxHealth()
+            if m > h:
+                obj.setHealth(m)
+                print("{0} now fed and healed {1} for {2} health\n".format(monster, m-h, m))
+            del obj
+        # if called from main(), immersive output
+    else:
+        print("The corpse was incinerated!\n")
 
     proc = input('')
-    if corpse == False:
+    if killcall == False:
         return interface() #throw interface()
 
 
@@ -423,7 +426,7 @@ def mainUserInput():
     elif i == 'feed':
 
         if len(pen) > 0:
-            return feedingTime(corpse = False)
+            return feedingTime(killcall = False, feeding = True)
         else:
             print('\nFor reasons of your own, you put food in the empty pen...\n')
             return mainUserInput()
@@ -446,5 +449,3 @@ def interface():
 
 # Program procedure
 main()
-print('\nLeaving the battle dome...')
-

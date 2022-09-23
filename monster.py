@@ -5,7 +5,6 @@ Monster class
 filename: monster.py
 for MonsterBattle-Console.py version  0.1.3.1 (2021-3-19)
 version 1.1 (2021-3-19)
-
 Notes:
 The advantage, as far as I can see, for wrapping variables in methods is protecting client input
 Otherwise, with some code changes, I could simply use a dictionary. This would use a lot less code, no idea

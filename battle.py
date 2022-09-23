@@ -1,10 +1,11 @@
+
 '''
 By Nicholas Zehm
 2021-3-19
 Battle logic
 filename: battle.py
 version 1
-for MonsterBattleConsole.py version  0.1.5 (2021-5-17)
+for MonsterBattleConsole.py version  0.1.6.1 (2021-5-17)
 '''
 
 # Import Modules
@@ -79,15 +80,27 @@ def fight(name1, name2, rest):
             print(name2,'takes 1 damage and dies!')
         else:
             m = obj2.getMaxHealth()
-            print('{0} takes 1 damage'.format(name2))
+            
+            y = obj2.getExp()
+            y = y + 1
+            obj2.setExp(y)
 
         #gain experience
         x = obj1.getExp()
-        x += 1
+        x = x + 5
         obj1.setExp(x)
+
     else:
         defenseType(name1, name2)
+        
+        x = obj1.getExp()
+        x = x + 1
+        obj1.setExp(x)
 
+        x += obj2.getExp()
+        x = x + 2
+        obj2.setExp(x)
+    
     return alive
 
 
