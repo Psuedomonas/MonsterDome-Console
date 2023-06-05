@@ -1,4 +1,4 @@
-#!/usr/bin/python3.8
+#!/usr/bin/python3.10
 # Filename: MonsterDomeConsole.py
 
 '''
@@ -6,17 +6,17 @@ By Nicholas Zehm
 2021-3-5
 A simple monster dueling game
 filename: MonsterDomeConsole.py
-Version 0.1.6.1 (2022-3-19)
+Version 0.2.2 (2023-01-18) stable
 '''
 
 # Activate Debug mode (so many neat features...)
-debug_mode = True
+debug_mode = False
 
 # Import Modules
 import pickle # save data
 
 # Import files
-from monster import Monster, pen
+from monster import *
 from battle import *
 
 # Storage File
@@ -30,6 +30,7 @@ if debug_mode == True:
                 'kill' : "kill a monster in the pen",
                 'fight' : "fight monsters in the pen",
                 'feed' : "feed the monsters in the pen, brings them to full health",
+                'level' : "level up a monster",
                 'save' : "Save the pen",
                 'load' : "Load a pen",
                 'exit' : "Exit the monster dome"}
@@ -39,6 +40,7 @@ else:
                 'kill' : "kill a monster in the pen",
                 'fight' : "fight monsters in the pen",
                 'feed' : "feed the monsters in the pen, brings them to full health",
+                'level' : "level up a monster",
                 'save' : "Save the pen",
                 'load' : "Load a pen",
                 'exit' : "Exit the monster dome"}
@@ -54,21 +56,21 @@ else:
 #  @return  none
 #
 def demo():
-    obj = Monster(20, 10, 0 , 0) #(max_health, max_stamina, experience, level)
+    obj = Monster(20, 10, 0 , 0, 0, 0) #(max_health, max_stamina, experience, level, attack_skill, defense_skill)
     obj.setHealth(10)
     pen['dragon'] = obj
 
-    obj = Monster(10, 10, 0, 0)
+    obj = Monster(10, 10, 0, 0, 0, 0)
     pen['beast'] = obj
 
-    obj = Monster(10, 10, 10, 0)
+    obj = Monster(10, 10, 10, 0, 1, 1)
     pen['chimera'] = obj
 
-    obj = Monster(10, 10, 0, 0)
+    obj = Monster(10, 10, 0, 0, 0, 0)
     obj.setHealth(20)
     pen['george'] = obj
 
-    obj = Monster(1,1,1,1)
+    obj = Monster(1,1,1,1,1,1)
     pen['scarecrow'] = obj
 
     del obj
@@ -91,10 +93,12 @@ def makeMonster():
     stamina = 10
     exp = 0
     lvl = 0
+    a_s = 0
+    d_s = 0
     print('\n{0} is level {1}, has {2} health, {3} stamina, and {4} experience'.format(name, lvl, health, stamina, exp))
     toPen = input('Save to pen? (yes/no) : ')
     if toPen == 'yes':
-        obj = Monster(health, stamina, exp, lvl) # make the monster
+        obj = Monster(health, stamina, exp, lvl, a_s, d_s) # make the monster
         try:
             pen[name] = obj #store in pen
         except:
@@ -154,7 +158,41 @@ def dmMakeMonster():
 
     return interface()
 
-
+def levelMonster():
+    name = input('Which monster would you like to level up: ')
+    if checkMonster(name):
+        obj = pen[name]
+        exp = obj.getExp()
+        if exp < 5:
+            print('Not enough experience to level up!')
+        else:
+            print(" 'h' health, 's' stamina, 'a' attack skill, 'd' defense skill")
+            choice = input('What attribute do you want to level up for 5 exp?: ')
+            if choice == 'h':
+                print('upgrade health')
+                obj.setMaxHealth(obj.getMaxHealth() + 1)
+                obj.setLevel(obj.getLevel() + 1)
+                obj.setExp(exp - 5)
+            elif choice == 's':
+                print('upgrade stamina')
+                obj.setMaxStamina(obj.getMaxStamina() + 1)
+                obj.setLevel(obj.getLevel() + 1)
+                obj.setExp(exp - 5)
+            elif choice == 'a':
+                print('upgrade attack skill')
+                obj.setAttackSkill(obj.getAttackSkill() + 1)
+                obj.setLevel(obj.getLevel() + 1)
+                obj.setExp(exp - 5)
+            elif choice == 'd':
+                print('upgrade defense skill')
+                obj.setDefenseSkill(obj.getDefenseSkill() + 1)
+                obj.setLevel(obj.getLevel() + 1)
+                obj.setExp(exp - 5)
+            else:
+                print('selection not understood')
+    proc = input('\n')
+    return interface()
+        
 #
 #  name: killMonster
 #  purpose: User cam remove/terminate a monster in the pen
@@ -248,11 +286,16 @@ def checkMonster(name):
         max_s = obj.getMaxStamina()
 
         exp = obj.getExp()
+        
+        attack_skill = obj.getAttackSkill()
+        defense_skill = obj.getDefenseSkill()
 
         del obj
-        print('{0}:\tLevel: {1}\tHealth: {2}/{3}\tStamina: {4}/{5}\t Experience: {6}'.format(name, lvl, health, max_h, stamina, max_s,exp))
+        print('{0} Level: {1}  Health: {2}/{3}  Stamina: {4}/{5}  Experience: {6}  Attack Skill: {7}  Defense Skill {8}'.format(name, lvl, health, max_h, stamina, max_s,exp, attack_skill, defense_skill))
+        return True
     else:
         print('For mysterious reasons', name, 'does not appear to be in the pen.')
+        return False
 
 
 #
@@ -309,12 +352,53 @@ def feedingTime(killcall, feeding):
 def liveInPen(name):
     obj = pen[name]
     if obj.getHealth() <= 0:
-        print(name, "had died and was eaten by the others (or just rotted there)!")
+        print(name, "corpse was eaten by the others!\n")
         del obj
         del pen[name]
         return False
     else:
         return True
+
+
+#
+#  name: populateArena
+#  purpose: recursively fill array for arena battle
+#  @param operates on to_arena
+#  @return recursive calls to itself
+#
+def populateArena():
+    try:
+        name = input('\nChoose another monster to fight in the battle dome! : ')
+        if name in pen:
+            if liveInPen(name) == False: #is monster still alive?
+                print("The selected monster is dead.")
+                return interface()
+            to_arena.append(name)
+        else:
+            print('\n{0} is not in the pen!\n'.format(name))
+            return populateArena()
+
+        recurse = input('\nDo you want to put another monster in the battle dome? (y/n): ')
+        
+        if recurse == 'y':
+            return populateArena()
+            #make sure this isn't making an error
+        else:
+            if len(to_arena) >= 2:
+                #Start the battle!
+                battle()
+                #Clean up
+                for name in not_alive:
+                    liveInPen(name)
+                not_alive.clear()
+                turn_order.clear()
+                return interface()
+            else:
+                populateArena()
+    except KeyboardInterrupt:
+        return interface()
+    
+
 
 
 #
@@ -324,27 +408,17 @@ def liveInPen(name):
 #  @return  tail call back to interface
 #
 def selectMonster():
-    name1 = input('\nChoose a monster to fight in the battle dome! : ')
-    if name1 in pen:
-        if liveInPen(name1) == False: #is monster still alive?
+
+    name = input('\nChoose a monster to fight in the battle dome! : ')
+    if name in pen:
+        if liveInPen(name) == False: #is monster still alive?
             return interface()
+        to_arena.append(name)
     else:
-        print('\n{0} is not in the pen!\n'.format(name1))
+        print('\n{0} is not in the pen!\n'.format(name))
         return interface()
 
-    name2 = input('Choose the monster to fight {0}! : '.format(name1))
-    if name2 in pen:
-        if liveInPen(name2) == False:
-            del obj1 #clear the previous monster
-            return interface()
-    else:
-        print('\n{0} is not in the pen!\n'.format(name2))
-        return interface()
-    print('\nEntering the battle pit!')
-
-    combatants = {name1, name2}
-    beginFight(combatants)
-    return interface()
+    return populateArena()
 
 
 '''
@@ -387,7 +461,6 @@ def mainUserInput():
         #Check before calling, don't want to edit pen when I don't need to, even with self
         if len(pen) < 2:
             print('\nThere is not enough monsters in the pen!')
-            print('\nLeaving the Battle Dome...\n')
             return mainUserInput()
         else:
             showPen()
@@ -419,8 +492,13 @@ def mainUserInput():
 
     elif i == 'dm' and debug_mode == True:
         return dmMakeMonster()
+    
+    elif i == 'level':
+        showPen()
+        return levelMonster()
 
     elif i == 'exit':
+        print("Exiting the Monster Battle Dome!")
         exit()
 
     elif i == 'feed':
@@ -449,3 +527,4 @@ def interface():
 
 # Program procedure
 main()
+
