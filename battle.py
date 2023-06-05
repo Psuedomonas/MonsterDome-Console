@@ -1,11 +1,10 @@
-
 '''
 By Nicholas Zehm
 2021-3-19
 Battle logic
 filename: battle.py
-version 1
-for MonsterBattleConsole.py version  0.1.6.1 (2021-5-17)
+for MonsterBattle-Console-exp/MonsterBattleDome.py
+version  0.2.2 (2023-01-18)
 '''
 
 # Import Modules
@@ -13,286 +12,302 @@ import random # for random numbers
 import time # for delay stuff
 import math # for log?
 
-from monster import Monster, pen
+
+# Import the project
+from monster import *
 
 
-#
-#  name: selectMonster()
-#  purpose: Select a monster from the pen list for the battle dome fight, determine fight order
-#  @param   pen - list of monsters
-#  @return  battle(nameA, nameB) - to begin the fight
-#
-def beginFight(combatants):
-    name1 = combatants.pop()
-    name2 = combatants.pop()
-
-    obj1 = pen[name1]
-    obj2 = pen[name2]
-
-    #Who gets to attack first, then start the battle
-    exp1 = obj1.getExp()
-    exp2 = obj2.getExp()
-
-    #Don't need these in memory anymore
-    del obj1
-    del obj2
-
-    whosOnFirst = battleRoll(exp1, exp2, True)
-
-    if whosOnFirst == True:
-        return battle(name1, name2)
-    else:
-        return battle(name2, name1)
+'''Dictionaries for the battle'''
+turn_order = []
+potential_targets = []
+not_alive = []
 
 
-#
-#  name: fight(name1, name2, rest)
-#  purpose:
-#  @param
-#  @return
-#
-def fight(name1, name2, rest):
-    '''Monsters'''
-    obj1 = pen[name1] #Monster 1
-    obj2 = pen[name2] #Monster 2
-    exp1 = obj1.getExp()
-    exp2 = obj2.getExp()
+'''The battle sequence'''
+def battle():
+    turn = 1
+    still_fighting = True
+  
+    try:
+        while still_fighting:
+            #Start Turn 'turn'
+            print('**** \t Start turn', turn, '\t ****')
 
-    alive = 2 #monsters should be alive at this point
-
-    a = attackType() #what type of attack does monster 1 do?
-    print('\n{0} {1} {2}...'.format(name1, a, name2))
-
-    if rest == True:    #Is the opponent sleeping?
-        success = True
-    else:
-        success = battleRoll(exp1, exp2, False) # does monster 1's attack succeed?
-
-    time.sleep(0.5) #provide delay between attack and result...
-
-    if success == True:
-        #attack damage
-        h = obj2.getHealth()
-        h -= 1
-        obj2.setHealth(h)
-        if h <= 0:
-            alive = 1
-            print(name2,'takes 1 damage and dies!')
-        else:
-            m = obj2.getMaxHealth()
-            
-            y = obj2.getExp()
-            y = y + 1
-            obj2.setExp(y)
-
-        #gain experience
-        x = obj1.getExp()
-        x = x + 5
-        obj1.setExp(x)
-
-    else:
-        defenseType(name1, name2)
-        
-        x = obj1.getExp()
-        x = x + 1
-        obj1.setExp(x)
-
-        x += obj2.getExp()
-        x = x + 2
-        obj2.setExp(x)
+            #build turn order
+            turn_order = rollForTurnOrder()
     
-    return alive
+            for name in turn_order:
+                # Name is awake and is alive
+                if isAwake(name) and isAlive(name):
+                    print(name, "'s turn")
+                    
+                    potential_targets = to_arena.copy()
+                    potential_targets.remove(name)
+                    
+                    if name in potential_targets:
+                        print('logic error!')
+                        break
+                    
+                    if len(potential_targets) > 1:
+                        target = list(potential_targets)[-1]
+                    else:
+                        target = rollForTarget(potential_targets)
 
-
-#
-#  name: battle(name1, name2)
-#  purpose:
-#  @param
-#  @return
-#
-def battle(name1, name2):
-    alive = 2 #Monsters are alive
-    keepFighting = True # The fight is still on
-    turn = 1    #Track the turn number
-    needs_rest1 = False #is monster 1 sleepy
-    needs_rest2 = False #is monster 2 sleepy
-
-    survivor_name = ''
-
-    obj1 = pen[name1]
-    obj2 = pen[name2]
-
-    print(name1, 'attacks first!')
-
-    while alive == 2 and keepFighting == True:
-        '''Monster 1's turn'''
-        stam1 = obj1.getStamina()
-        stam2 = obj2.getStamina()
-
-        if stam2 <= 0: # is opponent awake?
-            needs_rest2 = True
-
-        if stam1 > 0: # is monster 1 awake
-            needs_rest1 = False
-            alive = fight(name1, name2, needs_rest2)
-            stam1 -= 1
-            obj1.setStamina(stam1)
-        else: # Monster 1 sleeps and gets some stamina back
-            needs_rest1 = True
-            stam1 += 2
-            obj1.setStamina(stam1)
-            print(name1, 'rests for a bit')
-
-        '''Monster 2's turn'''
-        if alive == 2: #Both monsters are still alive
-            time.sleep(1)
-
-            if stam1 <= 0:
-                needs_rest1 = True
-
-            if stam2 > 0:
-                needs_rest2 = False
-                alive = fight(name2, name1, needs_rest1)
-                stam2 -= 1
-                obj2.setStamina(stam2)
-            else:
-                needs_rest2 = True
-                stam2 += 2
-                obj2.setStamina(stam2)
-                print(name2, 'rests for a bit')
-
-        '''End of turn'''
-        if alive == 2:
-            h = obj1.getHealth()
-            hm = obj1.getMaxHealth()
-            sm = obj1.getMaxStamina()
-            s = obj1.getStamina()
-            x = obj1.getExp()
-            print('\n{5} at {0}/{1} health, {2}/{3} stamina, {4} experience'.format(h, hm, s, sm, x, name1))
-
-            h = obj2.getHealth()
-            hm = obj2.getMaxHealth()
-            sm = obj2.getMaxStamina()
-            s = obj2.getStamina()
-            x = obj2.getExp()
-            print('{5} at {0}/{1} health, {2}/{3} stamina, {4} experience'.format(h, hm, s, sm, x, name2))
-
+                    fight(name, target)
+                    
+                    proc = input("next...")
+                    
+                #Name is alive but not awake
+                elif isAlive(name):
+                    sleep_type = sleepAdjectives()
+                    obj = pen[name]
+                    stamina = obj.getStamina()
+                    stamina = stamina + 3
+                    obj.setStamina(stamina)
+                    print(name, sleep_type, ' to regain 3 stamina')
+                    
+                #Name is dead
+                else:
+                    #Check if less than two are alive
+                    if len(to_arena) < 2:
+                        still_fighting = False
+                        return battleEnd()
+                #Check if less than two are alive
+                if len(to_arena) < 2:
+                    still_fighting = False
+                    return battleEnd()
+            
             proc = input('****\t End turn {0}\t ****: '.format(turn))
             turn += 1
 
-            if proc == 'exit': # a chance to end the fight, if only the user knew this existed...
-                keepFighting = False
-                print("You flee the arena... with your monsters...")
-
-    '''Clean up after battle'''
-    if alive == 1:
-        t = 0
-        heal = 0
-        if obj1.getHealth() <= 0:   # First monster defeated, eaten by second
-            survivor_name = name2
-
-            if obj2.getMaxHealth() > obj2.getHealth(): # for now, we allow for greater than max health, but not for healing
-                print(heal)
-
-                if obj2.getMaxHealth() >= (heal + obj2.getHealth()):
-                    t = obj2.getHealth() + heal
-                    obj2.setHealth(t)
-                else:
-                    heal = obj2.getMaxHealth() - obj2.getHealth()
-                    t = obj2.getMaxHealth()
-                    obj2.setHealth(t)
-            else:
-                heal = 0
-                t = obj2.getMaxHealth()
-
-            max_s = obj2.getMaxStamina() # The monster sleeps in pen, UI tells user monster is resting in pen later
-            obj2.setStamina(max_s)
-
-            print("{0} wins! {0} eats {1}'s bloodied corpse and heals {2} for {3} health".format(name2, name1, heal, t))
-            del pen[name1]
-
-        elif obj2.getHealth() <= 0: # Second monster defeated, eaten by first
-            survivor_name = name1
-
-            if obj1.getMaxHealth() > obj1.getHealth(): # for now, we allow for greater than max health, but not for healing
-                heal = obj2.getMaxHealth() // 3
-
-                if obj1.getMaxHealth() >= (heal + obj1.getHealth()):
-                    t = obj1.getHealth() + heal
-                    obj1.setHealth(t)
-                else:
-                    heal = obj1.getMaxHealth() - obj1.getHealth()
-                    t = obj1.getMaxHealth()
-                    obj1.setHealth(t)
-            else:
-                heal = 0
-                t = obj2.getMaxHealth()
-
-            max_s = obj1.getMaxStamina() # The monster sleeps in pen, UI tells user monster is resting in pen later
-            obj1.setStamina(max_s)
-
-            print("{0} wins! {0} eats {1}'s bloodied corpse and heals {2} for {3} health".format(name1, name2, heal, t))
-            del pen[name2]
-
-        elif obj1.getHealth() <= 0 and obj2.getHealth() <= 0: #This should not happen
-            print("Egads! Both {0} and {1} have died! Surely this is a 'feature', not a bug.".format(name1, name2))
-            alive = 0
-            del pen[name1]
-            del pen[name2]
-
-    else:
-        survivor_name = name1 + ' and ' + name2
-
-        max_s = obj1.getMaxStamina() # The monster sleeps in pen, UI tells user monster is resting in pen later
-        obj1.setStamina(max_s)
-
-        max_s = obj2.getMaxStamina() # The monster sleeps in pen, UI tells user monster is resting in pen later
-        obj2.setStamina(max_s)
-
-    del obj1
-    del obj2
-    return battleEnd(survivor_name, alive)
+    except KeyboardInterrupt:
+        print("You flee the arena... with your monsters...")
+        
+    return battleEnd()
 
 
+''' the action sequence '''
 #
-#  name: battleEnd(name1, name2, rest)
+#  name: fight(name1, name2)
 #  purpose:
 #  @param
 #  @return
 #
-def battleEnd(names, alive):
+def fight(name1, name2):
+    #Attacker
+    obj1 = pen[name1]
+    exp1 = obj1.getExp()
+    s1 = obj1.getStamina()
+    a_s1 = obj1.getAttackSkill()
+    m_s1 = obj1.getMaxStamina()
 
-    proc = input('') #wait for user at end
-    print('Exiting Arena!')
+    #Defender
+    obj2 = pen[name2]
+    exp2 = obj2.getExp()
+    h2 = obj2.getHealth()
+    s2 = obj2.getStamina()
+    d_s2 = obj2.getDefenseSkill()
+    m_h2 = obj2.getMaxHealth()
+    m_s2 = obj2.getMaxStamina()
 
-    if alive == 2:
-        print(names, 'go to sleep in pen, recover missing stamina\n')
-    elif alive == 1:
-        print(names, 'goes to sleep in pen, recovers missing stamina\n')
+    a = attackType() #what type of attack does monster 1 do?
+    print('\n{0} {1} {2}...'.format(name1, a, name2))
+    
+    s1 = s1 - 3
+    obj1.setStamina(s1)
+
+    print('\t{0} stamina = {1}/{2}'.format(name1, s1, m_s1))
+
+    time.sleep(0.5) #provide delay between attack and result...
+
+    #attack 'roll'
+    roll_attack = random.randint(1, 20) + math.log2(1 + a_s1)
+    #print('attack roll =',roll_attack)
+    
+    #Target defense
+    if isAwake(name2): # Target us awake
+        
+        #defense 'roll'
+        roll_defense = random.randint(1, 20) + math.log2(1 + d_s2)
+        #print('defense roll =',roll_defense)
+        
+        if roll_attack < 5:   # Attacker Missed
+            #attack experience gain
+            exp1 = exp1 + 1
+            obj1.setExp(exp1)
+            #target experience gain
+            exp2 = exp2 + 1
+            obj2.setExp(exp2)
+
+            fails(name1)
+
+            print('\t', name1, ' experience = ', exp1, ', ', name2, 'experience = ', exp2)
+
+        elif roll_attack >= roll_defense:   # Attack Success
+            #damage calculation
+            damage = random.randint(0, 3) + math.log2(1 + a_s1)
+
+            #target stamina loss
+            s2 = s2 - 1
+            obj2.setStamina(s2)
+
+            #target experience gain
+            exp2 = exp2 + 1
+            obj2.setExp(exp2)
+
+            print('attack hits!')
+
+            #target health loss
+            h2 = h2 - damage
+            if h2 < 0:
+                h2 = 0
+                print(name2,'takes {0} damage and dies!'.format(damage))
+                
+                exp1 = exp1 + 2
+            else:
+                print('\t{0} takes {1} damage, health = {2}/{3}, stamina = {4}/{5}'.format(name2, damage, h2, m_h2, s2, m_s2))
+           
+            obj2.setHealth(h2)
+            isAlive(name2)
+            
+            #attacker experience gain
+            exp1 = exp1 + 2
+            obj1.setExp(exp1)
+            print('\t{0} stamina = {1} / {2}'.format(name1, s2, m_s2))
+            print('\t', name1, 'experience = ', exp1, ', ', name2, 'experience = ', exp2)
+
+        else:   # Defense Success
+            defenseType(name1, name2)
+
+            #attacker experience gain
+            exp1 = exp1 + 1
+            obj1.setExp(exp1)
+
+            #defender stamina loss
+            s2 = s2 - 1
+            obj2.setStamina(s2)
+
+            #defender stamina gain
+            exp2 = exp2 + 2
+            obj2.setExp(exp2)
+
+    else:   # Attacker gets better chance for an attack
+        if roll_attack < 5:   # Missed
+            #attacker experience gain
+            exp1 = exp1 + 1
+            obj1.setExp(exp1)
+            
+            fails(name1)
+
+            print('\t', name1, 'experience = ', exp1, ', ', name2, 'experience = ', exp2)
+
+        else:   # Attack Success
+            print('attack hits!')
+            
+            damage = random.randint(0,5) + math.log2(1 + a_s1)
+
+            #defender health loss
+            h2 = h2 - damage
+            if h2 < 0:
+                h2 = 0
+                print(name2,'takes {0} damage and dies!'.format(damage))
+                isAlive(name2)
+            else:
+                print('\t{0} takes {1} damage, health = {2}/{3}, stamina = {4}/{5}'.format(name2, damage, h2, m_h2, s2, m_s2))
+            obj2.setHealth(h2)
+
+            #attacker experience gain
+            exp1 = exp1 + 2
+            obj1.setExp(exp1)
+            print('\t{0} stamina = {1} / {2}'.format(name1, s1, m_s1))
+            print('\t',name1, 'experience = ', exp1, ', ', name2, 'experience = ', exp2)
 
 
 #
-#  name: battleRoll(expA, expB, cond)
-#  purpose:
-#  @param
-#  @return
 #
-def battleRoll(expA, expB, cond):
-    #roll for initiative
-    mAroll = random.randint(1, 10) + math.log10(1 + expA)
-    mBroll = random.randint(1, 10) + math.log10(1 + expB)
+#
+#
+#
+#
+def fails(name):
+    failed = [" missed!", "'s attack failed!", " biffed!", " totally missed the mark!", " completely failed the attack!"]
 
-    if mAroll > mBroll:
-        return True             #1 is first
-    elif mAroll < mBroll:
-        return False            #2 is first
-    elif cond == True:
-        print('Both rolled the same!') #I'm interested to see how often this would happen
-        return battleRoll(expA, expB, cond) #recursion until there is a victor
-    else:
-        return True
+    r = random.randint(0,4)
+
+    print(name, failed[r])
 
 
+#
+#
+#
+#
+#
+#
+def battleEnd():
+    for name in to_arena:
+       print(name)
+       
+    print('Has won the battle!')
+    
+    #reset stamina
+    for name in to_arena:
+        print(name, 'sleeps in pen')
+        obj = pen[name]
+        max_stamina = obj.getMaxStamina()
+        obj.setStamina(max_stamina)
+    
+    if not len(not_alive) == 0:
+        proc = input('Do you wish to resurrect the dead monster(s)? (y/n): ')
+        if proc == 'y':
+            print('Very well')
+            for name in not_alive:
+                print(name, 'resurrected to 1 health')
+                obj = pen[name]
+                obj.setHealth(1)
+    
+    to_arena.clear()
+    
+    print('Exiting Arena!\n')
+    #return interface()
+
+
+#
+#
+#
+#
+#
+def rollForTurnOrder():
+    battle_order = {}
+    for name in to_arena:
+        obj = pen[name]
+        level = obj.getLevel()
+        the_roll = random.randint(1, 20) + math.log(1 + level)
+        battle_order[name] = the_roll
+
+    battle_order = dict(sorted(battle_order.items(), key=lambda item: item[1], reverse = True))
+    
+    return battle_order
+
+
+#
+#
+#
+#
+#
+def rollForTarget(potential_targets):
+    battle_order = {}
+    
+    for name in potential_targets:
+        obj = pen[name]
+        level = obj.getLevel()
+        the_roll = random.randint(1, 20) + math.log(1 + level)
+        battle_order[name] = the_roll
+
+        battle_order = dict(sorted(battle_order.items(), key=lambda item: item[1],reverse = True))
+        
+        return list(battle_order)[-1]
+        
+                
 #
 #  name: attackType()
 #  purpose:
@@ -300,27 +315,27 @@ def battleRoll(expA, expB, cond):
 #  @return
 #
 def attackType():
-    attacks = {1 : 'bites', 2 : 'claws', 3 : 'punches', 4 : 'spits at', 5 : 'stabs tail at', 6 :  'insults'}
-    adjectives = {1 : 'viciously', 2 : 'ferociously', 3 : 'wildly', 4 : 'mindlessly'}
+    attacks = ['bites', 'claws', 'punches', 'spits at', 'stabs tail at', 'insults']
+    adjectives = ['viciously', 'ferociously', 'wildly', 'mindlessly']
 
     attack_r = random.randint(1,26) #randomly choose attack type
 
-    if attack_r == 1: #bites
-        att = attacks[6]
-    elif attack_r == (2 or 6): #claws
+    if  1 <= attack_r <= 5: # bites
+        att = attacks[0]
+    elif 6 <= attack_r <= 10: # claws
         att = attacks[1]
-    elif attack_r == (6 or 11): #punches
+    elif 11 <= attack_r <= 15: # punches
         att = attacks[2]
-    elif attack_r == (11 or 16): #spits at
+    elif 16 <= attack_r <= 20: # spits at
         att = attacks[3]
-    elif attack_r == (16 or 21): #stabs tail at
+    elif 21 <= attack_r <= 25: # stabs tail at
         att = attacks[4]
-    else:                       # words can hurt too
+    elif attack_r == 26: # words can hurt too
         att = attacks[5]
 
-    adjective_r = random.randint(1,6) #adjust for length of adjectives dictionary + 2 for 2 chances of no adjective
+    adjective_r = random.randint(0,6) #adjust for length of adjectives list + 3 chances of no adjective
 
-    if adjective_r > 4: #set to length of adjectives
+    if adjective_r > 3: #set to length of adjectives
         attack_string = att
     else:
         attack_string = adjectives[adjective_r] + ' ' + att
@@ -335,17 +350,70 @@ def attackType():
 #  @return
 #
 def defenseType(name1, name2):
-    r = random.randint(1,3)
+    def_adjectives = ['deftly', 'nimbly', 'skillfully', 'adeptly']
+    def_verbs = ['blocks', 'dodges', 'evades', 'defends']
 
-    if r == 1:
-        print(name1, 'misses')
-    elif r == 2:
-        defense_adjectives = {1 : 'deftly', 2 : 'nimbly'}
-        adjective_r = random.randint(1,4)
+    verb_r = random.randint(0,3)
+    verb = def_verbs[verb_r]
 
-        if adjective_r >= 2:
-            print(name2, 'dodges')
-        else:
-            print(name2, defense_adjectives[adjective_r], 'dodges')
+    adj_r = random.randint(0,6)
+    if adj_r > 3:
+        # no adjective
+        print(name2, verb, '!')
     else:
-        print('attack fails')
+        print(name2, def_adjectives[adj_r], verb, "!")
+
+
+#
+#
+#
+#
+#
+''' And now, some functions'''
+'''Check of monster is alive'''
+def isAlive(name):
+    obj = pen[name]
+    if obj.getHealth() <= 0:
+        if name in to_arena:
+            to_arena.remove(name)
+        if name not in not_alive:
+            not_alive.append(name)
+
+        return False
+    else:
+        return True
+
+
+#
+#
+#
+#
+#
+'''Check if monster is awake'''
+def isAwake(name):
+    obj = pen[name]
+    if obj.getStamina() <= 0:
+        return False
+    else:
+        return True
+
+
+#
+#
+#
+#
+#
+def sleepAdjectives():
+    sleep_words = ['sleeps', 'rests', 'naps', 'dozes', 'snoozes', 'slumbers']
+    adjectives = ['peacefully', 'serenely ', 'fretfully', 'soundly']
+
+    r = random.randint(0,5)
+
+    adj_r = random.randint(0,6)
+
+    if adj_r > 3:
+        sleep_string = sleep_words[r]
+    else:
+        sleep_string = sleep_words[r] + " " + adjectives[adj_r]
+
+    return sleep_string
