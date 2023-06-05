@@ -1,76 +1,40 @@
-# MonsterDome-Console
-A simple monster dueling game
+# MonsterDome-Console-exp
+Fight monsters in the battle dome
+By Nicholas Zehm
 
-using python 3.8
+Using Python3.10
 
-By Nicholas Zehm 2013-1-8
+## Updates
+Version 0.2.2 stable (2023-01-18)
+* fixed a number of logic bugs, including the lack of clearing list of
+monsters for combat
+* cleared some (not all) of unnecessary debug code
 
-filename: MonsterDomeConsole.py
+Version 0.2.1 experimental (2023-1-15)
+* added ability to level up monsters
 
-#### Version 0.1.6.1 (2022-7-18)
-*** Logic issue with experience, Doesn't behave as intended
-- will need to rewrite battle logic
-Changes:
-* All combat gives exp.
-    5 for attack success
-    1 for attack fail
-    2 for defend success
-    1 for defend fail
-Notes: 
-I will want to change the exp system and attack system to better provide better exp development
+Version 0.2.0 experimental (2023-1-14)
+* Due to features, I decided to name the stable version 2.0.
+* Ability to bring more than 2 monsters to the battle dome and have them
+fight. Currently no limit. Free for all mode only at the moment.
+* Added defense and attack skill
 
-#### Version 0.1.5.1 (2022-3-19) Stable
-Changes:
-* cleaned logic issues with killMonster() and feedingTime()
-* cleaned savePen()
+Version 0.1.7 unstable/broken (2022-10-16)
+* Add the ability to fight multiple monsters. This involves a complete
+rewrite of the battle logic, which appeared to be much needed as 
+unintended results may have occured in the previous version.
 
-#### Version 0.1.5 (2021-5-17) Stable
-Changes:
-* fixed indentation issue with killMonster()
-* cleaned user interface prompts with killMonster()
-* removed redudant liveInPen() method from battle.py
-* cleaned user interface prompts with selectMonster()
+## Bugs
+* none known, thought the interface is clunky
 
-Notes:
-* Weird issues may still occur in combat.
+## Notes
+* There are no notes
 
+## Future directions
+* more user control of monster combat
+* team based fight mechanic
+* a GUI of some kind
+    - tk
+    - pygame
 
-#### Version 0.1.4 (2021-3-19) Stable
-Changes:
-* separated battle.py
-* adjusted code to prevent circular referencing - now better suited for gui
-* changed main, added interface and mainUserInterface to reduce printing of main_menu
-* minor edits and fixes
-
-
-#### Version 0.1.3.1 (2021-3-17) Experimental
-Changes:
-* Separated monster.py to minutely simplify code.
-* Added stamina to the monster object
-* Added level to the monster object
-* updated with changes from version 0.1.1.2
-* Adjusted the file date to reflect date of earliest prototype of this project (MonsterPenWorks.py)
-* switched to international standard date format
-* Adjust combat logic to utilize stamina
-* Changed save system to save dictionary of objects
-* Added a check for redundant names
-
-Fixed:
-* post battle healing logic fixed
-* minor UI output stuff
-
-## ToDo:
-* finish function descriptions throughout code
-* multiple pens to save file
-* delete pens from save file
-* save as?
-* use an internal ID system for monsters, instead of name? - allow same redundant names?
-* user interaction for attacks/defense
-* leveling
-* other monster attributes
-* start thinking about a UI
-
-Other options
-* add partial interface for save/load pen
-* Add full interface... (like the unstable tk version)
 
