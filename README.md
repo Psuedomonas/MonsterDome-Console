@@ -14,7 +14,7 @@ Version 0.2.1 experimental (2023-1-15)
 * added ability to level up monsters
 
 Version 0.2.0 experimental (2023-1-14)
-* Due to features, I decided to name the stable version 2.0.
+* Due to features, I decided to name the stable version 0.2.0.
 * Ability to bring more than 2 monsters to the battle dome and have them
 fight. Currently no limit. Free for all mode only at the moment.
 * Added defense and attack skill
