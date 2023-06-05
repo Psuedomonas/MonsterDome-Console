@@ -16,7 +16,7 @@ Version 0.2.1 experimental (2023-1-15)
 Version 0.2.0 experimental (2023-1-14)
 * Due to features, I decided to name the stable version 0.2.0.
 * Ability to bring more than 2 monsters to the battle dome and have them
-fight. Currently no limit. Free for all mode only at the moment.
+fight. Currently no limit. Free-for-all mode only at the moment.
 * Added defense and attack skill
 
 Version 0.1.7 unstable/broken (2022-10-16)
